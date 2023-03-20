@@ -4,7 +4,14 @@ const { Server } = require("socket.io");
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer, { /* options */ });
+const io = new Server(httpServer, { 
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+      }
+ });
+
+
 
 io.on("connection", (socket) => {
   console.log("Connected to Socket.IO! \n")
@@ -59,5 +66,6 @@ socket.on('join', function(accessToken, store, latitude, longitude) {
 })
 });
 
+console.log("SOCKET IO SERVER RUNNING");
 
 httpServer.listen(3000);
